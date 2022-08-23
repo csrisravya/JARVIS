@@ -1,6 +1,9 @@
+
 from datetime import datetime
 import pyttsx3 # Test to speech conversion
-import speechRecognition as sr
+import speech_recognition as sr
+import webbrowser # module offers a high-level interface that enables showing the documents based on the web
+
 
 engine  = pyttsx3.init('sapi5') # Microsoft Speech API (SAPI5) is the technology for voice recognition and synthesis . It provides male and female voices
                                 # Using sapi5 , we are able to use the inbuilt voice provided by windows
@@ -22,6 +25,40 @@ def greeting() :
     else:
         speak("Good Evening dear user . It is presently")
     speak("This is Jarvis. How may I help you ?")
+    
+def takeCommand():
+    # Takes microphone input from user and returns string output
+    r = sr.Recognizer() # Recognizer helps us recognize audio
+    with sr.Microphone() as source:
+        print("Listening.....")
+        # press on the method along with ctrl to access the documentation of the method
+        r.pause_threshold = 1 # seconds of non-speaking audio before a phrase is considered complete
+        audio = r.listen(source)
+            
+
+    try:
+        print("Recognizing.....")
+        query = r.recognize_google(audio, language='en-in')  #  Performs speech recognition on ``audio_data`` (an ``AudioData`` instance), using the Google Speech Recognition API.
+        print(f"You said : {query}\n")
+    
+    except Exception as e:
+        print(e)
+        print("Could not understand. Please try again.")
+        return "none"  # returns none string in case there is an error
+    return query
+    
+    
+        
+    
+    
 if __name__ == "__main__" : 
     # speak(" Hello , This is Jarvis ")
     greeting()
+     # takeCommand()
+    while True:
+        query = takeCommand().lower() # we are converting our speech command to string and storing it in query 
+        if "open google" in query:
+            webbrowser.open("google.com")
+        elif "open youtube" in query:
+            webbrowser.open_new_tab("youtube.com")
+            
