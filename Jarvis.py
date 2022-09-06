@@ -3,7 +3,7 @@ from datetime import datetime
 import pyttsx3 # Test to speech conversion
 import speech_recognition as sr
 import webbrowser # module offers a high-level interface that enables showing the documents based on the web
-
+import smtplib
 
 engine  = pyttsx3.init('sapi5') # Microsoft Speech API (SAPI5) is the technology for voice recognition and synthesis . It provides male and female voices
                                 # Using sapi5 , we are able to use the inbuilt voice provided by windows
@@ -46,19 +46,41 @@ def takeCommand():
         print("Could not understand. Please try again.")
         return "none"  # returns none string in case there is an error
     return query
-    
-    
-        
-    
+
+
+#SMTP: Simple Mail Transfer Protocol    
+def sendGmail(to,message): # we do this using smtplib which is a python package used to send email via gmail
+                          #but we need to allow the less secure apps for smtplib to allow us to ssnd an email
+    server = smtplib.SMTP("smtp.gmail.com,587")   #port number 587. This line creates our SMTP server session
+    server.starttls()  # TLS is used to add security
+    server.login("sender_email@gmail.com","password_of_the_sender_gmail")
+    server.sendmail('sender_email@gmail.com',to,message)
+    server.close()
     
 if __name__ == "__main__" : 
     # speak(" Hello , This is Jarvis ")
     greeting()
      # takeCommand()
+    query = takeCommand().lower() # we are converting our speech command to string and storing it in query 
     while True:
-        query = takeCommand().lower() # we are converting our speech command to string and storing it in query 
         if "open google" in query:
             webbrowser.open("google.com")
         elif "open youtube" in query:
             webbrowser.open_new_tab("youtube.com")
+        elif 'send email' in query:
+            try:
+                speak("What would be the message?")
+                content = takeCommand()
+                to = "sender_email@gmail.com"
+                sendGmail(to,"Hello,this is sent through python")
+                speak("Your message has been sent via an email!")
+            except Exception as e:
+                print(e)
+        
+    
+            
+                        
+  
+        
+            
             
