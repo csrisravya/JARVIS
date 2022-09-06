@@ -60,9 +60,9 @@ def sendGmail(to,message): # we do this using smtplib which is a python package 
 if __name__ == "__main__" : 
     # speak(" Hello , This is Jarvis ")
     greeting()
-     # takeCommand()
-    query = takeCommand().lower() # we are converting our speech command to string and storing it in query 
+     # takeCommand() 
     while True:
+        query = takeCommand().lower() # we are converting our speech command to string and storing it in query
         if "open google" in query:
             webbrowser.open("google.com")
         elif "open youtube" in query:
