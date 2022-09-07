@@ -87,7 +87,7 @@ if __name__ == "__main__" :
             speak(results)
          elif 'open stackoverflow' in query:
             webbrowser.open("https://stackoverflow.com/")
-          elif 'open website' in query:
+         elif 'open website' in query:
             speak('Please type the name of the website you want to visit. Please specify the full url')
             website_name=input() #taking the name of the website as an input from the user
             print(website_name)
