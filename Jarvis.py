@@ -3,9 +3,9 @@ import pyjokes
 import wikipedia #Wikipedia is a Python library that makes it easy to access and parse data from Wikipedia.
 from datetime import datetime
 import pyttsx3 # Test to speech conversion
-import speech_recognition as sr
-import webbrowser # module offers a high-level interface that enables showing the documents based on the web
-import smtplib
+import speech_recognition as sr #Library for performing speech recognition with the Google Speech Recognition API.
+import webbrowser # module offers a high-level interface that enables showing the documents based on the web. To browse the web and open any webpage
+import smtplib #The smtplib module defines an SMTP client session object that can be used to send mail to any internet machine with an SMTP or ESMTP listener daemon.
 
 engine  = pyttsx3.init('sapi5') # Microsoft Speech API (SAPI5) is the technology for voice recognition and synthesis . It provides male and female voices
                                 # Using sapi5 , we are able to use the inbuilt voice provided by windows
@@ -53,9 +53,11 @@ def takeCommand():
 #SMTP: Simple Mail Transfer Protocol    
 def sendGmail(to,message): # we do this using smtplib which is a python package used to send email via gmail
                           #but we need to allow the less secure apps for smtplib to allow us to ssnd an email
+                          #enable less secure apps to all users.  Since google has dissabled the feature. We need to generate the password for third party access. Check out the readme file to know how to generate the password
     server = smtplib.SMTP("smtp.gmail.com,587")   #port number 587. This line creates our SMTP server session
-    server.starttls()  # TLS is used to add security
-    server.login("sender_email@gmail.com","password_of_the_sender_gmail")
+    server.ehlo() #Hostname to identify itself
+    server.starttls()  # puts the connection to the SMTP server into TLS mode. TLS stands for transfer layer security. It is for connecting purpose. TLS is used to add security 
+    server.login("sender_email@gmail.com","password_of_the_sender_gmail") #here password_of_the_sender_gmail is the passowrd which u generate
     server.sendmail('sender_email@gmail.com',to,message)
     server.close()
     
@@ -63,8 +65,9 @@ if __name__ == "__main__" :
     # speak(" Hello , This is Jarvis ")
     greeting()
      # takeCommand() 
+      #Logic for executing tasks based on query
     while True:
-        query = takeCommand().lower() # we are converting our speech command to string and storing it in query
+        query = takeCommand().lower() # we are converting our speech command to string and storing it in query. #converting query to lower case
         if "open google" in query:
             webbrowser.open("google.com")
         elif "open youtube" in query:
