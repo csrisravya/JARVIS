@@ -78,7 +78,32 @@ if __name__ == "__main__" :
                 speak("Your message has been sent via an email!")
             except Exception as e:
                 print(e)
-        
+         elif 'wikipedia' in query: #if the word wikipedia is there in the command it will search wikipedia
+            speak('Searching Wikipedia...')
+            query=query.replace("wikipedia", "")
+            results=wikipedia.summary(query,sentences=2) #Plain text summary of the page.
+            speak('According to wikipedia')
+            print(results)
+            speak(results)
+         elif 'open stackoverflow' in query:
+            webbrowser.open("https://stackoverflow.com/")
+          elif 'open website' in query:
+            speak('Please type the name of the website you want to visit. Please specify the full url')
+            website_name=input() #taking the name of the website as an input from the user
+            print(website_name)
+            webbrowser.open_new_tab(website_name)
+        elif 'the time' in query:
+            strTime=datetime.now().strftime("%H:%M:%S")  #strftime is string format time. The strftime() method takes one or more format codes as an argument and returns a formatted string based on it. 
+            speak(f"Man, the time is {strTime}")
+            print(f"The time is {strTime}")
+        elif 'the date' in query:
+            strDate=datetime.now().strftime("%D%M%Y")
+            speak(f"Mam the date is {strDate}")
+            print(f"The date is {strDate}")
+        elif 'jokes' in query:
+            joke=pyjokes.get_joke()
+            print(joke)
+            speak(joke)
     
             
                         
