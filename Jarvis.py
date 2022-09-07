@@ -1,4 +1,6 @@
-
+from asyncio import exceptions
+import pyjokes
+import wikipedia #Wikipedia is a Python library that makes it easy to access and parse data from Wikipedia.
 from datetime import datetime
 import pyttsx3 # Test to speech conversion
 import speech_recognition as sr
