@@ -13,6 +13,8 @@ voices = engine.getProperty('voices') # getting the voices
 # print(voices) : prints all the voices the system can provide us.
 engine.setProperty('voice',voices[1].id) # to set the voice
                                           # 0 is the voice of david(man). 1 is the voice of zira
+#The first and foremost thing for an A.I. assistant is that it should be able to speak. To make our J.A.R.V.I.S. talk, we will make a function called speak(). This function will take audio as an argument, and then it will pronounce it.
+#Now, the next thing we need is audio. We must supply audio so that we can pronounce it using the speak() function we made. We are going to install a module called pyttsx3.
 def speak(audio):
     engine.say(audio) 
     engine.runAndWait() # This function will make the speech audible in the system. The speech will not be audible if this command isnt written
@@ -29,6 +31,7 @@ def greeting() :
     speak("This is Jarvis. How may I help you ?")
     
 def takeCommand():
+    #take command with the help of the microphone of the user's system. So, now we will make a takeCommand() function.  With the help of the takeCommand() function, our A.I. assistant will return a string output by taking microphone input from the user.
     # Takes microphone input from user and returns string output
     r = sr.Recognizer() # Recognizer helps us recognize audio
     with sr.Microphone() as source:
